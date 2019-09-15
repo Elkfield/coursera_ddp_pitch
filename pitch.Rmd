@@ -1,5 +1,5 @@
 ---
-title: "The Ultimate Regression App"
+title: "Regression App"
 author: "Erik Hirschfeld"
 date: "13 September 2019"
 output: beamer_presentation
@@ -8,44 +8,43 @@ output: beamer_presentation
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-dta <- data.frame(
-  matrix(c(21, 110, 2.62, 21, 110, 2.875, 22.8,93,2.32, 21.4,110,3.215,
-           18.7,175,3.44, 18.1,105,3.46, 14.3,245,3.57, 24.4,62,3.19,
-           22.8,95,3.15, 19.2,123,3.44, 17.8,123,3.44, 16.4,180,4.07, 
-           17.3,180,3.73, 15.2,180,3.78, 10.4,205,5.25,10.4,215,5.424,
-           14.7,230,5.345,32.4,66,2.2,30.4,52,1.615,33.9,65,1.835,
-           21.5,97,2.465,15.5,150,3.52,15.2,150,3.435,13.3,245,3.84,
-           19.2,175,3.845,27.3,66,1.935,26,91,2.14,30.4,113,1.513,
-           15.8,264,3.17,19.7,175,2.77,15,335,3.57,21.4,109,2.78), ncol = 3, byrow = TRUE))
-names(dta) <- c("dep", "pred1", "pred2")
+#dta <- data.frame(
+#  matrix(c(21, 110, 2.62, 21, 110, 2.875, 22.8,93,2.32, 21.4,110,3.215,
+#           18.7,175,3.44, 18.1,105,3.46, 14.3,245,3.57, 24.4,62,3.19,
+#           22.8,95,3.15, 19.2,123,3.44, 17.8,123,3.44, 16.4,180,4.07, 
+#           17.3,180,3.73, 15.2,180,3.78, 10.4,205,5.25,10.4,215,5.424,
+#           14.7,230,5.345,32.4,66,2.2,30.4,52,1.615,33.9,65,1.835,
+#           21.5,97,2.465,15.5,150,3.52,15.2,150,3.435,13.3,245,3.84,
+#           19.2,175,3.845,27.3,66,1.935,26,91,2.14,30.4,113,1.513,
+#           15.8,264,3.17,19.7,175,2.77,15,335,3.57,21.4,109,2.78), ncol = 3, byrow = TRUE))
+#names(dta) <- c("dep", "pred1", "pred2")
+dta <- data(mtcars)
+dta <- mtcars
 ```
 
-## The Ultimate Regression App
+## The Regression App
 
-The new and ultimate regression app helps people without programming knowledge to easily perform regression !!!
+The regression app let's you build a model for miles per gallon from the mtcars dataset.
 
-## Functionality
+You can select the predictor variables and a new model is calculated with the selected predictors.
 
-The user just uploads a CSV file, afterwards the user can select in a user friendly interface which variable to model, if there is a weight variable and which variables to use in the regression as predictors.
+## Results
 
-## Result 1: Data Summary
+The results are the model summary and in addition to the model summary also diagnostic plots for the regression are displayed.
 
-To check the uploaded data the data summary will be displayed:
-```{r, echo = FALSE}
-summary(dta)
-```
 
-## Result 2: Model Results
+## Result 1: Model Results
 The model summary is directly displayed in the browser:
 \tiny
 ```{r, echo = FALSE}
-summary(lm(dep ~ pred1 + pred2, data = dta))
+mdl <- lm(mpg ~ hp + wt, data = dta)
+summary(mdl)
 ```
 
-## Thank You
+## Result 2: Diagnostic plots
 
-Don't miss this opportunity and invest in the ultimate app !!!
-
-
-
-
+To check the uploaded data the data summary will be displayed:
+```{r}
+par(mfrow = c(2,2))
+plot(mdl)
+```
